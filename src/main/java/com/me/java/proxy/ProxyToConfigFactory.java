@@ -26,8 +26,10 @@ import java.util.Properties;
 }
 
 /**
- * config interfaces, map the config properties file: db.url = db.validation =
- * true db.pool.size = 100
+ * config interfaces, map the config properties file: 
+ * db.url = 
+ * db.validation =true 
+ * db.pool.size = 100
  */
 interface IConfig {
 

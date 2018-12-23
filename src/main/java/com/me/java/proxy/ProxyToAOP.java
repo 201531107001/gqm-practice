@@ -5,9 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 interface IVehical {
-
     void run(int speed);
-
 }
 
 //concrete implementation
@@ -63,6 +61,7 @@ public class ProxyToAOP {
         // 这个对象将会代理car
         IVehical proxyObj = proxy.create();
         proxyObj.run(50);
+        car.run(30);
     }
 }
 /*

@@ -5,3 +5,5 @@
 2. java的动态代理实现
 3. cglib动态代理的实现
 4. elastic-job实现分布式任务调度
+5. apache commons digester解析xml
+6. apache commons beanutils操作javabean

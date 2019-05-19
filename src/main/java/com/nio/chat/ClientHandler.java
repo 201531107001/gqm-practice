@@ -17,35 +17,40 @@ public class ClientHandler implements Runnable {
 	private boolean flag = true;
 	private Selector selector;
 
-	public ClientHandler(Selector selector){
+	public ClientHandler(Selector selector) {
 		this.selector = selector;
 	}
 
-	public void stop(){
+	public void stop() {
 		this.flag = false;
 	}
 
 	@Override
 	public void run() {
-		try {
-			while (flag) {
-				int readyKeys = selector.select(500);//selector.selectNow();
+		while (flag) {
+			int readyKeys = 0;//selector.selectNow();
+			try {
+				readyKeys = selector.select(500);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-				if (readyKeys < 1) {
-					continue;
-				}
-				Set<SelectionKey> selectionKeys = selector.selectedKeys();
-				Iterator<SelectionKey> iterator = selectionKeys.iterator();
-				while (iterator.hasNext()) {
-					SelectionKey selectionKey = iterator.next();
-					iterator.remove();
-					if (selectionKey.isReadable()) {
+			if (readyKeys < 1) {
+				continue;
+			}
+			Set<SelectionKey> selectionKeys = selector.selectedKeys();
+			Iterator<SelectionKey> iterator = selectionKeys.iterator();
+			while (iterator.hasNext()) {
+				SelectionKey selectionKey = iterator.next();
+				iterator.remove();
+				if (selectionKey.isReadable()) {
+					try {
 						readHandler(selectionKey, selector);
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
